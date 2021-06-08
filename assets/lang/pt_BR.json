@@ -1,0 +1,10 @@
+{
+  "labels":{
+    "home-page": "Página Inicial",
+    "splash-screen-page": "Carregando",
+    "param-page": "Página %s"
+  },
+  "messages":{
+    "information-message": "Mensagem Informativa"
+  }
+}
