@@ -1,6 +1,6 @@
 import 'package:localization_dart/app/core/localizations/localization.dart';
 
-class LocalizationLabels {
-  static String homePage = "home-page".i18nMessages();
-  static String pageId(String pageNumber) => "param-page".i18nMessages([pageNumber]);
+class LocalizationMessages {
+  static String homePage = Localization.i18nMessages("home-page");
+  static String pageId(String pageNumber) => Localization.i18nMessages("param-page", [pageNumber]);
 }
