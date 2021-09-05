@@ -1,43 +1,43 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-extension Localization on String {
-  static Map<String, String> messages = Map();
-  static Map<String, String> labels = Map();
+class Localization {
+  static Map<String, String> _messages = Map();
+  static Map<String, String> _labels = Map();
+
+  static const String _translationLocale = "assets/lang";
+  static const String _defaultLang = "en_US";
 
   static Future configuration({
-    String translationLocale = "assets/lang",
-    String defaultLang = "pt_BR",
+    String translationLocale = _translationLocale,
+    String translationLang = _defaultLang,
   }) async {
-    String data;
     debugPrint("Loading localization data.");
+    String data;
+
     try {
-      data = await rootBundle.loadString('$translationLocale/${Platform.localeName}.json');
-    } catch (_) {
-      data = await rootBundle.loadString('$translationLocale/$defaultLang.json');
+      debugPrint('$translationLocale/$translationLang.json');
+      data = await rootBundle.loadString('$translationLocale/$translationLang.json');
+    } catch (e) {
+      debugPrint('$translationLocale/$_defaultLang.json');
+      data = await rootBundle.loadString('$translationLocale/$_defaultLang.json');
     }
+
     Map<String, dynamic> _result = json.decode(data);
 
     _result["labels"].forEach((String key, dynamic value) {
-      labels[key] = value.toString();
-      debugPrint(value.toString());
+      _labels[key] = value.toString();
     });
     _result["messages"].forEach((String key, dynamic value) {
-      messages[key] = value.toString();
+      _messages[key] = value.toString();
     });
-    // labels.map((key, value) => debugPrint(""));
     debugPrint("Localization data loaded successfully!");
   }
 
-  String i18n(Map<String, String> map, [List<String> args = const []]) {
-    final key = this;
-
+  static String _i18n(String key, Map<String, String> map, [List<String> args = const []]) {
     if (map.isEmpty) {
       throw "[Localization System] sentences is empty";
     }
@@ -57,17 +57,13 @@ extension Localization on String {
     return _result;
   }
 
-  String i18nMessages([List<String> args = const []]) {
-    String _result = this.i18n(messages, args);
+  static String i18nMessages(String key, [List<String> args = const []]) {
+    String _result = _i18n(key, _messages, args);
     return _result;
   }
 
-  String i18nLabels([List<String> args = const []]) {
-    String _result = this.i18n(labels, args);
+  static String i18nLabels(String key, [List<String> args = const []]) {
+    String _result = _i18n(key, _labels, args);
     return _result;
   }
-
-  // static void fromJson(Map<String, dynamic> json) => sentences = json;
-
-  // Map<String, String> toJson() => sentences;
 }
