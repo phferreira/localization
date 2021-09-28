@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Localization {
   static Map<String, String> _messages = Map();
@@ -10,6 +11,17 @@ class Localization {
 
   static const String _translationLocale = "assets/lang";
   static const String _defaultLang = "en_US";
+
+  static Future<String> decompressFile(String locale) async {
+    File file = File(locale);
+    Uint8List data = file.readAsBytesSync();
+
+    List<int> decompress = gzip.decode(data);
+
+    String decoded = utf8.decode(decompress);
+
+    return decoded;
+  }
 
   static Future configuration({
     String translationLocale = _translationLocale,
@@ -19,11 +31,11 @@ class Localization {
     String data;
 
     try {
-      debugPrint('$translationLocale/$translationLang.json');
-      data = await rootBundle.loadString('$translationLocale/$translationLang.json');
+      debugPrint('$translationLocale/$translationLang.gzip');
+      data = await decompressFile('$translationLocale/$translationLang.gzip');
     } catch (e) {
-      debugPrint('$translationLocale/$_defaultLang.json');
-      data = await rootBundle.loadString('$translationLocale/$_defaultLang.json');
+      debugPrint('$translationLocale/$_defaultLang.gzip');
+      data = await decompressFile('$translationLocale/$_defaultLang.gzip');
     }
 
     Map<String, dynamic> _result = json.decode(data);
