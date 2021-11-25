@@ -13,12 +13,13 @@ class Localization {
   static const String _defaultLang = "en_US";
 
   static Future<String> decompressFile(String locale) async {
-    File file = File(locale);
-    Uint8List data = file.readAsBytesSync();
+    final File file = File(locale);
 
-    List<int> decompress = gzip.decode(data);
+    final Uint8List data = file.readAsBytesSync();
 
-    String decoded = utf8.decode(decompress);
+    final List<int> decompress = gzip.decode(data);
+
+    final String decoded = utf8.decode(decompress);
 
     return decoded;
   }
@@ -38,7 +39,7 @@ class Localization {
       data = await decompressFile('$translationLocale/$_defaultLang.gzip');
     }
 
-    Map<String, dynamic> _result = json.decode(data);
+    final Map<String, dynamic> _result = json.decode(data);
 
     _result["labels"].forEach((String key, dynamic value) {
       _labels[key] = value.toString();
@@ -70,12 +71,12 @@ class Localization {
   }
 
   static String i18nMessages(String key, [List<String> args = const []]) {
-    String _result = _i18n(key, _messages, args);
+    final String _result = _i18n(key, _messages, args);
     return _result;
   }
 
   static String i18nLabels(String key, [List<String> args = const []]) {
-    String _result = _i18n(key, _labels, args);
+    final String _result = _i18n(key, _labels, args);
     return _result;
   }
 }
