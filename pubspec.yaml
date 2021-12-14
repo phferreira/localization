@@ -1,4 +1,4 @@
-name: localization_dart
+name: localization
 description: A new Flutter project.
 
 publish_to: 'none'
@@ -12,18 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  flutter_modular: ^3.2.2+1
-  flutter_triple: ^1.0.6
-
 dev_dependencies:
-  flutter_modular_test: ^1.0.1
-  flutter_test:
-    sdk: flutter
-  triple_test: ^0.0.6
 
 flutter:
   uses-material-design: true
-
-  assets:
-    - assets/lang/
