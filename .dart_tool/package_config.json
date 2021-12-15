@@ -47,10 +47,10 @@
       "name": "localization",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.15"
     }
   ],
-  "generated": "2021-12-14T17:11:42.417730Z",
+  "generated": "2021-12-15T02:50:10.940113Z",
   "generator": "pub",
   "generatorVersion": "2.15.0"
 }
