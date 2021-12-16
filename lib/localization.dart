@@ -16,16 +16,16 @@ class Localization {
   static const String _translationLocale = 'assets/lang';
   static const String _defaultLang = 'en_US';
 
-  static Future<String> decompressFile(String locale) async {
-    final File file = File(locale);
+  static Future<String> _decompressFile(String locale) async {
+    final File _file = File(locale);
 
-    final Uint8List data = file.readAsBytesSync();
+    final Uint8List _data = _file.readAsBytesSync();
 
-    final List<int> decompress = gzip.decode(data);
+    final List<int> _decompress = gzip.decode(_data);
 
-    final String decoded = utf8.decode(decompress);
+    final String _decoded = utf8.decode(_decompress);
 
-    return decoded;
+    return _decoded;
   }
 
   static Future configuration({
@@ -33,23 +33,23 @@ class Localization {
     String translationLang = _defaultLang,
   }) async {
     debugPrint('Loading localization data.');
-    String data;
+    String _data;
 
     try {
       debugPrint('$translationLocale/$translationLang.gzip');
-      data = await decompressFile('$translationLocale/$translationLang.gzip');
+      _data = await _decompressFile('$translationLocale/$translationLang.gzip');
     } catch (e) {
       debugPrint('$translationLocale/$_defaultLang.gzip');
-      data = await decompressFile('$translationLocale/$_defaultLang.gzip');
+      _data = await _decompressFile('$translationLocale/$_defaultLang.gzip');
     }
 
-    final Map<String, dynamic> _result = json.decode(data);
+    final Map<String, dynamic> _result = json.decode(_data);
 
-    _result['labels'].forEach((String key, dynamic value) {
-      _labels[key] = value.toString();
+    _result['labels'].forEach((String _key, dynamic _value) {
+      _labels[_key] = _value.toString();
     });
-    _result['messages'].forEach((String key, dynamic value) {
-      _messages[key] = value.toString();
+    _result['messages'].forEach((String _key, dynamic _value) {
+      _messages[_key] = _value.toString();
     });
     debugPrint('Localization data loaded successfully!');
   }
@@ -58,19 +58,18 @@ class Localization {
     if (map.isEmpty) {
       throw 'Localization sentences is empty';
     }
-    String res = '';
+    String _result = '';
     if (map.containsKey(key)) {
-      res = map[key].toString();
+      _result = map[key].toString();
     } else {
-      res = key;
+      _result = key;
     }
 
     if (args.isNotEmpty) {
       for (String arg in args) {
-        res = res.replaceFirst(RegExp(r'%s'), arg.toString());
+        _result = _result.replaceFirst(RegExp(r'%s'), arg.toString());
       }
     }
-    final String _result = res;
     return _result;
   }
 
