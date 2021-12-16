@@ -1,11 +1,13 @@
 library localization;
 
-export './localization.dart';
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+
+export './localization.dart';
 
 class Localization {
   static Map<String, String> _messages = Map();
@@ -30,14 +32,14 @@ class Localization {
     String translationLocale = _translationLocale,
     String translationLang = _defaultLang,
   }) async {
-    // debugPrint("Loading localization data.");
+    debugPrint("Loading localization data.");
     String data;
 
     try {
-      // debugPrint('$translationLocale/$translationLang.gzip');
+      debugPrint('$translationLocale/$translationLang.gzip');
       data = await decompressFile('$translationLocale/$translationLang.gzip');
     } catch (e) {
-      // debugPrint('$translationLocale/$_defaultLang.gzip');
+      debugPrint('$translationLocale/$_defaultLang.gzip');
       data = await decompressFile('$translationLocale/$_defaultLang.gzip');
     }
 
@@ -49,7 +51,7 @@ class Localization {
     _result["messages"].forEach((String key, dynamic value) {
       _messages[key] = value.toString();
     });
-    // debugPrint("Localization data loaded successfully!");
+    debugPrint("Localization data loaded successfully!");
   }
 
   static String _i18n(String key, Map<String, String> map, [List<String> args = const []]) {
