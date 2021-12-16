@@ -20,6 +20,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "lint",
+      "rootUri": "file:///home/paulo/.pub-cache/hosted/pub.dartlang.org/lint-1.8.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "meta",
       "rootUri": "file:///home/paulo/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0",
       "packageUri": "lib/",
@@ -50,7 +56,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2021-12-15T03:01:44.047480Z",
+  "generated": "2021-12-16T17:31:03.743715Z",
   "generator": "pub",
   "generatorVersion": "2.15.0"
 }

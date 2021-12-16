@@ -11,3 +11,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+dev_dependencies:
+  lint: ^1.8.1

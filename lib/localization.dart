@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 export './localization.dart';
 
 class Localization {
-  static Map<String, String> _messages = Map();
-  static Map<String, String> _labels = Map();
+  static final Map<String, String> _messages = {};
+  static final Map<String, String> _labels = {};
 
   static const String _translationLocale = 'assets/lang';
   static const String _defaultLang = 'en_US';
@@ -66,9 +66,9 @@ class Localization {
     }
 
     if (args.isNotEmpty) {
-      args.forEach((arg) {
+      for (String arg in args) {
         res = res.replaceFirst(RegExp(r'%s'), arg.toString());
-      });
+      }
     }
     final String _result = res;
     return _result;
