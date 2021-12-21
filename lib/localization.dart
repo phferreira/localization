@@ -2,10 +2,11 @@ library localization;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:archive/archive_io.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 export './localization.dart';
 
@@ -17,11 +18,11 @@ class Localization {
   static const String _defaultLang = 'en_US';
 
   static Future<String> _decompressFile(String locale) async {
-    final File _file = File(locale);
+    final ByteData _file = await rootBundle.load(locale);
 
-    final Uint8List _data = _file.readAsBytesSync();
+    final Uint8List _data = _file.buffer.asUint8List();
 
-    final List<int> _decompress = gzip.decode(_data);
+    final List<int> _decompress = GZipDecoder().decodeBytes(_data);
 
     final String _decoded = utf8.decode(_decompress);
 

@@ -2,6 +2,12 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "archive",
+      "rootUri": "file:///home/paulo/.pub-cache/hosted/pub.dartlang.org/archive-3.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "async",
       "rootUri": "file:///home/paulo/.pub-cache/hosted/pub.dartlang.org/async-2.8.2",
       "packageUri": "lib/",
@@ -34,6 +40,12 @@
     {
       "name": "collection",
       "rootUri": "file:///home/paulo/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "crypto",
+      "rootUri": "file:///home/paulo/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -140,7 +152,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2021-12-20T22:00:12.325763Z",
+  "generated": "2021-12-21T01:52:15.665456Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }
