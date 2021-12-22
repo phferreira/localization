@@ -18,15 +18,20 @@ class Localization {
   static const String _defaultLang = 'en_US';
 
   static Future<String> _decompressFile(String locale) async {
-    final ByteData _file = await rootBundle.load(locale);
+    try {
+      final ByteData _file = await rootBundle.load(locale);
 
-    final Uint8List _data = _file.buffer.asUint8List();
+      final Uint8List _data = _file.buffer.asUint8List();
 
-    final List<int> _decompress = GZipDecoder().decodeBytes(_data);
+      final List<int> _decompress = GZipDecoder().decodeBytes(_data);
 
-    final String _decoded = utf8.decode(_decompress);
+      final String _decoded = utf8.decode(_decompress);
 
-    return _decoded;
+      return _decoded;
+    } catch (e) {
+      debugPrint(e.toString());
+      return '';
+    }
   }
 
   static Future configuration({
@@ -34,25 +39,31 @@ class Localization {
     String translationLang = _defaultLang,
   }) async {
     debugPrint('Loading localization data.');
-    String _data;
+    String _data = '';
 
     try {
       debugPrint('$translationLocale/$translationLang.gzip');
       _data = await _decompressFile('$translationLocale/$translationLang.gzip');
-    } catch (e) {
-      debugPrint('$translationLocale/$_defaultLang.gzip');
-      _data = await _decompressFile('$translationLocale/$_defaultLang.gzip');
+
+      if (_data.isEmpty) {
+        debugPrint('$translationLocale/$_defaultLang.gzip');
+        _data = await _decompressFile('$translationLocale/$_defaultLang.gzip');
+      }
+    } finally {
+      if (_data.isEmpty) {
+        debugPrint('Localization data not loaded successfully!');
+      } else {
+        final Map<String, dynamic> _result = json.decode(_data);
+
+        _result['labels'].forEach((String _key, dynamic _value) {
+          _labels[_key] = _value.toString();
+        });
+        _result['messages'].forEach((String _key, dynamic _value) {
+          _messages[_key] = _value.toString();
+        });
+        debugPrint('Localization data loaded successfully!');
+      }
     }
-
-    final Map<String, dynamic> _result = json.decode(_data);
-
-    _result['labels'].forEach((String _key, dynamic _value) {
-      _labels[_key] = _value.toString();
-    });
-    _result['messages'].forEach((String _key, dynamic _value) {
-      _messages[_key] = _value.toString();
-    });
-    debugPrint('Localization data loaded successfully!');
   }
 
   static String _i18n(String key, Map<String, String> map, [List<String> args = const []]) {
