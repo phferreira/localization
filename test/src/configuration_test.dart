@@ -2,13 +2,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:localization/src/configuration.dart';
 
 void main() {
+  const String _locale = 'test/assets/lang';
+  const String _localeNotFound = 'test/assets/lang/notFound';
+  const String _lang = 'nt_FD';
+
   setUpAll(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
   });
 
   group('Labels - ', () {
     setUpAll(() async {
-      await Localization.configuration(translationLocale: 'test/assets/lang');
+      await Localization.configuration(translationLocale: _locale);
     });
 
     test('must be return a string when call app-name', () async {
@@ -22,13 +26,13 @@ void main() {
     });
 
     test('must be return a string when call app-name when not found a language file but found a default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nLabels('app-name');
       expect(appname, 'Localization');
     });
 
     test('must be return a string when call dynamic-page when not found a language file but found a default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nLabels('dynamic-page', ['1.0']);
       expect(appname, 'Home - 1.0');
     });
@@ -44,25 +48,25 @@ void main() {
     });
 
     test('must be return a string "label-not-found" when not found a language file but find default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nLabels('label-not-found');
       expect(appname, 'label-not-found');
     });
 
     test('must be return a string "label-not-found" when not found a language file', () async {
-      await Localization.configuration(translationLocale: 'assets/lang/notFound');
+      await Localization.configuration(translationLocale: _localeNotFound);
       final String appname = Localization.i18nLabels('label-not-found');
       expect(appname, 'label-not-found');
     });
 
     test('must be return a empty string when not found a language file and search for a empty string', () async {
-      await Localization.configuration(translationLocale: 'assets/lang/notFound');
+      await Localization.configuration(translationLocale: _localeNotFound);
       final String appname = Localization.i18nLabels('');
       expect(appname, '');
     });
 
     test('must be return a empty string when not found a language file but find default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nLabels('');
       expect(appname, '');
     });
@@ -83,13 +87,13 @@ void main() {
     });
 
     test('must be return a string when call welcome when not found a language file but found a default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nMessages('welcome');
       expect(appname, 'Welcome!');
     });
 
     test('must be return a string when call dynamic-welcome when not found a language file but found a default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nMessages('dynamic-welcome', ['User']);
       expect(appname, 'Welcome - User');
     });
@@ -105,25 +109,25 @@ void main() {
     });
 
     test('must be return a string "message-not-found" when not found a language file but find default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nMessages('message-not-found');
       expect(appname, 'message-not-found');
     });
 
     test('must be return a string "message-not-found" when not found a language file', () async {
-      await Localization.configuration(translationLocale: 'assets/lang/notFound');
+      await Localization.configuration(translationLocale: _localeNotFound);
       final String appname = Localization.i18nMessages('message-not-found');
       expect(appname, 'message-not-found');
     });
 
     test('must be return a empty string when not found a language file and search for a empty string', () async {
-      await Localization.configuration(translationLocale: 'assets/lang/notFound');
+      await Localization.configuration(translationLocale: _localeNotFound);
       final String appname = Localization.i18nMessages('');
       expect(appname, '');
     });
 
     test('must be return a empty string when not found a language file but find default language file', () async {
-      await Localization.configuration(translationLang: 'nt_FD');
+      await Localization.configuration(translationLocale: _locale, translationLang: _lang);
       final String appname = Localization.i18nMessages('');
       expect(appname, '');
     });
