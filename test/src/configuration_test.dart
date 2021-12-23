@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:localization/localization.dart';
+import 'package:localization/src/configuration.dart';
 
 void main() {
   setUpAll(() async {
@@ -8,7 +8,7 @@ void main() {
 
   group('Labels - ', () {
     setUpAll(() async {
-      await Localization.configuration();
+      await Localization.configuration(translationLocale: 'test/assets/lang');
     });
 
     test('must be return a string when call app-name', () async {
