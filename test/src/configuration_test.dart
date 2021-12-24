@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:localization/src/configuration.dart';
 
 void main() {
-  const String _locale = 'test/assets/lang';
-  const String _localeNotFound = 'test/assets/lang/notFound';
+  const String _locale = 'assets/lang';
+  const String _localeNotFound = 'assets/lang/notFound';
   const String _lang = 'nt_FD';
 
   setUpAll(() async {
